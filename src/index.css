@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #a78bfa;
+  --color-primary-container: #7c3aed;
+  --color-on-primary: #0a0012;
+  --color-tertiary: #34d399;
+  --color-tertiary-container: #065f46;
+  --color-on-tertiary: #001a12;
+  --color-surface: #0c0c0f;
+  --color-background: #09090b;
+  --color-on-background: #fafafa;
+  --color-on-surface-variant: #a1a1aa;
+  --color-outline-variant: #27272a;
+  
+  --font-geist: "Geist", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-background font-geist;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/50 rounded-2xl;
+  }
+  
+  .hero-gradient-text {
+    @apply bg-gradient-to-r from-white via-primary to-tertiary bg-clip-text text-transparent;
+  }
+  
+  .mesh-gradient {
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(167, 139, 250, 0.1) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(52, 211, 153, 0.05) 0px, transparent 50%);
+  }
+}
