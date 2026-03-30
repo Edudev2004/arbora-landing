@@ -35,13 +35,13 @@ export const SalesAutomation = () => {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="flex overflow-x-auto hide-scrollbar lg:grid lg:grid-cols-2 gap-8 pb-8 -mx-6 px-6 snap-x snap-mandatory">
           {/* Core Row */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="p-8 rounded-[2.5rem] bg-zinc-900/30 border border-zinc-800/50"
+            className="flex-shrink-0 w-[85vw] lg:w-full snap-center p-8 rounded-[2.5rem] bg-zinc-900/30 border border-zinc-800/50"
           >
             <div className="flex items-center gap-3 mb-8">
               <span className="p-2 bg-zinc-800 rounded-lg text-zinc-400">
@@ -74,12 +74,11 @@ export const SalesAutomation = () => {
             </div>
           </motion.div>
 
-          {/* AI Row */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="p-8 rounded-[2.5rem] bg-primary/5 border border-primary/20 relative overflow-hidden"
+            className="flex-shrink-0 w-[85vw] lg:w-full snap-center p-8 rounded-[2.5rem] bg-primary/5 border border-primary/20 relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 p-8 opacity-10 blur-xl pointer-events-none">
               <Brain className="w-32 h-32 text-primary" />

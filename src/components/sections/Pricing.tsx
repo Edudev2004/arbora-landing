@@ -65,7 +65,7 @@ export const Pricing = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="flex overflow-x-auto hide-scrollbar md:grid md:grid-cols-2 gap-6 pb-8 -mx-6 px-6 snap-x snap-mandatory">
           {plans.map((plan, i) => (
             <motion.div
               key={i}
@@ -73,7 +73,7 @@ export const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15 }}
-              className={`relative group rounded-[2.5rem] p-10 border transition-all duration-500 ${
+              className={`relative flex-shrink-0 w-[85vw] md:w-full snap-center group rounded-[2.5rem] p-10 border transition-all duration-500 ${
                 plan.highlighted 
                   ? 'bg-zinc-900/60 border-primary/30 hover:border-primary/50 shadow-2xl shadow-primary/5' 
                   : 'bg-zinc-950/50 border-zinc-800/50 hover:border-zinc-700/60'

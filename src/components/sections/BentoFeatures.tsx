@@ -172,7 +172,7 @@ export const BentoFeatures = () => {
           </h2>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div className="flex overflow-x-auto hide-scrollbar md:grid md:grid-cols-12 gap-6 pb-8 -mx-6 px-6 snap-x snap-mandatory">
           {features.map((feature, i) => (
             <motion.div
               key={i}
@@ -181,7 +181,7 @@ export const BentoFeatures = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className={cn(
-                "group relative overflow-hidden glass-card p-8 border border-zinc-800/50 hover:border-zinc-700/50 transition-all duration-300",
+                "flex-shrink-0 w-[85vw] md:w-full snap-center group relative overflow-hidden glass-card p-8 border border-zinc-800/50 hover:border-zinc-700/50 transition-all duration-300",
                 feature.className
               )}
             >
