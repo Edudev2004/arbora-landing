@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CreditCard, Camera, BellRing, CheckCircle, Brain, Target, ArrowRight, Sparkles } from 'lucide-react';
+import { CreditCard, Camera, BellRing, CheckCircle, Brain, Target, Sparkles } from 'lucide-react';
 
 const coreSteps = [
   { icon: CreditCard, title: "Método de pago", color: "#a78bfa" },
@@ -59,12 +59,7 @@ export const SalesAutomation = () => {
             </p>
 
             <div className="space-y-6">
-              {[
-                { icon: CreditCard, title: "Envía Info Básica", color: "#a78bfa" },
-                { icon: Target, title: "Asigna a Vendedor", color: "#f59e0b" },
-                { icon: BellRing, title: "Registro Manual", color: "#ef4444" },
-                { icon: CheckCircle, title: "Entrega Manual", color: "#22c55e" },
-              ].map((step, i) => (
+              {coreSteps.map((step, i) => (
                 <div key={i} className="flex items-center gap-4 group">
                   <div 
                     className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-zinc-800"
