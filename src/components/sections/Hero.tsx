@@ -17,7 +17,7 @@ export const Hero = () => {
       >
         <Badge>La nueva era de la automatización en WhatsApp</Badge>
         
-        <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8 leading-[1.05] hero-gradient-text">
+        <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-8 leading-[1.05] hero-gradient-text">
           De responder dudas, <br className="hidden md:block" /> a cerrar ventas.
         </h1>
         
