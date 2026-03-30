@@ -1,6 +1,7 @@
 import { Button } from '../ui/Button';
 
 const DASHBOARD_URL = 'http://localhost:5173'; // TODO: cambiar en producción
+const BASE_URL = import.meta.env.BASE_URL;
 
 export const Navbar = () => {
   return (
@@ -8,7 +9,7 @@ export const Navbar = () => {
       <nav className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-10">
           <a className="flex items-center gap-2" href="#">
-            <img src="/ARBORA-WHITE.png" alt="Arbora" className="h-6" />
+            <img src={`${BASE_URL}ARBORA-WHITE.png`} alt="Arbora" className="h-6" />
           </a>
           <div className="hidden md:flex items-center gap-8">
             <a className="text-sm font-semibold text-zinc-400 hover:text-white transition-colors duration-200" href="#features">Características</a>

@@ -4,6 +4,7 @@ import { Button } from '../ui/Button';
 import { PlayCircle, ArrowDown } from 'lucide-react';
 
 const DASHBOARD_URL = 'http://localhost:5173'; // TODO: cambiar en producción
+const BASE_URL = import.meta.env.BASE_URL;
 
 export const Hero = () => {
   return (
@@ -52,7 +53,7 @@ export const Hero = () => {
             {/* Placeholder for dashboard screenshot - user will provide */}
             <div className="w-full aspect-[16/9] bg-zinc-950 rounded-xl flex items-center justify-center border border-zinc-800/50 relative overflow-hidden">
               <img 
-                src="/Arbora-HerramientaGrafica.png" 
+                src={`${BASE_URL}Arbora-HerramientaGrafica.png`} 
                 alt="Arbora Dashboard" 
                 className="w-full h-full object-cover rounded-xl transition-all duration-1000"
               />

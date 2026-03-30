@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { BarChart3, Users, Award, Activity, Wifi } from 'lucide-react';
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 const features = [
   { icon: BarChart3, label: 'Analíticas avanzadas', desc: 'Métricas de mensajes, retención, y popularidad de nodos en gráficas interactivas.' },
   { icon: Users, label: 'Gestión de usuarios', desc: 'Ve quiénes interactúan más, segmenta por recurrencia y actividad diaria.' },
@@ -46,7 +48,7 @@ export const DashboardShowcase = () => {
 
                 <div className="w-full aspect-[16/9] bg-zinc-950/20 flex items-center justify-center overflow-hidden">
                   <img 
-                    src="/Arbora-Dashboard.png" 
+                    src={`${BASE_URL}Arbora-Dashboard.png`} 
                     alt="Arbora Dashboard Analytics" 
                     className="w-full h-full object-cover rounded-b-xl"
                   />

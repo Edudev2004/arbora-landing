@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 import { MessageCircle, Globe, ShieldCheck } from 'lucide-react';
 
 const DASHBOARD_URL = 'http://localhost:5173'; // TODO: cambiar en producción
+const BASE_URL = import.meta.env.BASE_URL;
 
 function App() {
   return (
@@ -116,7 +117,7 @@ function App() {
       <footer className="bg-zinc-950 border-t border-zinc-900/50 pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
           <div className="md:col-span-1">
-            <img src="/ARBORA-WHITE.png" alt="Arbora" className="h-6 mb-4" />
+            <img src={`${BASE_URL}ARBORA-WHITE.png`} alt="Arbora" className="h-6 mb-4" />
             <p className="text-zinc-500 font-medium text-xs mt-2 mb-8 leading-relaxed">
               Automatización inteligente de ventas por WhatsApp. Flujos, pagos, entregas y analíticas en un solo lugar.
             </p>
