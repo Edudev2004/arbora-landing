@@ -117,7 +117,7 @@ export const Pricing = () => {
                 <Button 
                   variant={plan.ctaVariant} 
                   size="lg" 
-                  className={`w-full py-7 text-base font-black ${plan.highlighted ? 'shadow-xl shadow-primary/20 group-hover:scale-[1.02]' : ''}`}
+                  className={`w-full py-7 text-base font-black ${plan.highlighted ? 'group-hover:scale-[1.02]' : ''}`}
                 >
                   {plan.cta}
                 </Button>

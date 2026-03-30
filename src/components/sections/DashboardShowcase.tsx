@@ -44,87 +44,13 @@ export const DashboardShowcase = () => {
                 </div>
               </div>
 
-              {/* Dashboard content mockup */}
-              <div className="p-6 space-y-4">
-                {/* Stats row */}
-                <div className="grid grid-cols-4 gap-3">
-                  {[
-                    { label: 'Mensajes Hoy', value: '847', trend: '+12%', color: '#6366f1' },
-                    { label: 'Clientes', value: '156', trend: '+8%', color: '#a855f7' },
-                    { label: 'Resoluciones', value: '723', trend: '+15%', color: '#22c55e' },
-                    { label: 'Fallbacks', value: '24', trend: '-3%', color: '#ef4444' }
-                  ].map((stat, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.3 + i * 0.1 }}
-                      className="bg-zinc-950/50 rounded-xl p-3 border border-zinc-800/30"
-                    >
-                      <p className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider">{stat.label}</p>
-                      <p className="text-lg font-black text-white mt-1">{stat.value}</p>
-                      <p className="text-[10px] font-bold mt-0.5" style={{ color: stat.color }}>{stat.trend}</p>
-                    </motion.div>
-                  ))}
+                <div className="w-full aspect-[16/9] bg-zinc-950/20 flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="/Arbora-Dashboard.png" 
+                    alt="Arbora Dashboard Analytics" 
+                    className="w-full h-full object-cover rounded-b-xl"
+                  />
                 </div>
-
-                {/* Chart placeholder */}
-                <div className="bg-zinc-950/50 rounded-xl p-4 border border-zinc-800/30">
-                  <p className="text-[10px] text-zinc-500 font-bold uppercase mb-3">Pulso de Actividad</p>
-                  <div className="flex items-end gap-1 h-16">
-                    {[30, 45, 25, 60, 80, 55, 70, 40, 90, 65, 50, 35, 75, 85, 60, 45, 30, 55, 70, 80, 50, 35, 25, 40].map((h, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ height: 0 }}
-                        whileInView={{ height: `${h}%` }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.5 + i * 0.03, duration: 0.6 }}
-                        className="flex-1 bg-primary/30 rounded-t-sm hover:bg-primary/60 transition-colors"
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Mini donut + top nodes */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="bg-zinc-950/50 rounded-xl p-4 border border-zinc-800/30">
-                    <p className="text-[10px] text-zinc-500 font-bold uppercase mb-2">Efectividad</p>
-                    <div className="flex items-center gap-3">
-                      <div className="relative w-12 h-12">
-                        <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
-                          <circle cx="18" cy="18" r="14" fill="none" stroke="#27272a" strokeWidth="4" />
-                          <circle cx="18" cy="18" r="14" fill="none" stroke="#22c55e" strokeWidth="4" strokeDasharray="75 25" />
-                        </svg>
-                        <span className="absolute inset-0 flex items-center justify-center text-[10px] font-black text-white">85%</span>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-1.5 text-[9px]">
-                          <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                          <span className="text-zinc-400">Resueltos</span>
-                        </div>
-                        <div className="flex items-center gap-1.5 text-[9px]">
-                          <div className="w-2 h-2 rounded-full bg-red-500" />
-                          <span className="text-zinc-400">Fallback</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bg-zinc-950/50 rounded-xl p-4 border border-zinc-800/30">
-                    <p className="text-[10px] text-zinc-500 font-bold uppercase mb-2">Top Nodos</p>
-                    <div className="space-y-1.5">
-                      {['Catálogo', 'Pedidos', 'Horarios'].map((n, i) => (
-                        <div key={i} className="flex items-center gap-2">
-                          <div className="flex-1 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
-                            <div className="h-full bg-tertiary/60 rounded-full" style={{ width: `${90 - i * 25}%` }} />
-                          </div>
-                          <span className="text-[9px] text-zinc-500 font-medium w-14 text-right">{n}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </motion.div>
 

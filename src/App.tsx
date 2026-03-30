@@ -97,7 +97,7 @@ function App() {
               
               <div className="flex flex-col sm:flex-row justify-center gap-6">
                 <a href={DASHBOARD_URL} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="px-12 py-6 text-xl shadow-2xl shadow-primary/40">
+                  <Button size="lg" className="px-12 py-6 text-xl">
                     Crear mi Bot ahora
                   </Button>
                 </a>
@@ -161,7 +161,7 @@ function App() {
         
         <div className="max-w-7xl mx-auto px-6 border-t border-zinc-900/50 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-[10px] uppercase tracking-[0.2em] font-black text-zinc-600">
-            © 2024 Arbora. Todos los derechos reservados.
+            © 2026 Arbora. Todos los derechos reservados.
           </p>
           <div className="flex gap-8 text-[10px] uppercase tracking-widest font-black text-zinc-600">
             <a href="#" className="hover:text-primary transition-colors">Privacidad</a>

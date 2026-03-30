@@ -52,9 +52,9 @@ export const Hero = () => {
             {/* Placeholder for dashboard screenshot - user will provide */}
             <div className="w-full aspect-[16/9] bg-zinc-950 rounded-xl flex items-center justify-center border border-zinc-800/50 relative overflow-hidden">
               <img 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl8eKcmRuGqtniedecw5SXf0zFjK3NJlQRTQD55lCULXSFB9DLcI17JFvQGhXkfkNRyzsUkverLr2QsEny-1oRXZnTjpbII5syDPEldzyRb8qIn1jV86sdfSiWYlWd1nsEUCKD0Q9XNauJFyRW4_KrYi7m8VaQpnS0LeKRU5iK5gtj1VGxxnGaa2rQV9uX1c11BGVjqJa83dp0CqmEjSqdTwCok-Wtt5-6zoR4aL_B957psEr4MUTI8TwnSEoGC5SaueKAFtU2Wajd" 
+                src="/Arbora-HerramientaGrafica.png" 
                 alt="Arbora Dashboard" 
-                className="w-full h-full object-cover rounded-xl grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
+                className="w-full h-full object-cover rounded-xl transition-all duration-1000"
               />
             </div>
             

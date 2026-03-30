@@ -16,10 +16,10 @@ export const Button = ({
   ...props 
 }: ButtonProps) => {
   const variants = {
-    primary: "bg-primary text-on-primary hover:bg-primary-container shadow-lg shadow-primary/20",
-    secondary: "bg-zinc-800 text-white hover:bg-zinc-700",
-    ghost: "text-zinc-400 hover:text-emerald-400 backdrop-blur-sm",
-    glass: "bg-zinc-900/40 backdrop-blur-xl border border-zinc-800 hover:bg-zinc-800/60"
+    primary: "bg-zinc-950 text-white border border-primary/40 hover:bg-zinc-900/80 hover:border-primary shadow-[0_0_15px_-3px_rgba(167,139,250,0.3)] hover:shadow-[0_0_20px_-2px_rgba(167,139,250,0.5)]",
+    secondary: "bg-zinc-900 text-white border border-zinc-800 hover:bg-zinc-800",
+    ghost: "text-zinc-400 hover:text-primary backdrop-blur-sm",
+    glass: "bg-zinc-900/10 backdrop-blur-xl border border-zinc-800/50 hover:bg-zinc-800/30 text-white"
   };
 
   const sizes = {
@@ -33,7 +33,7 @@ export const Button = ({
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className={cn(
-        "rounded-xl transition-all duration-300 flex items-center justify-center gap-2",
+        "rounded-full transition-all duration-500 flex items-center justify-center gap-2 tracking-tight",
         variants[variant],
         sizes[size],
         className

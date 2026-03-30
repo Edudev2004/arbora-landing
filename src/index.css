@@ -16,9 +16,17 @@
   --font-geist: "Geist", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer base {
   body {
     @apply bg-background text-on-background font-geist;
+  }
+
+  section[id] {
+    scroll-margin-top: 80px;
   }
 }
 
