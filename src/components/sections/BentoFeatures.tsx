@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { GitBranch, HeartPulse, QrCode, ShieldCheck, CreditCard, CalendarDays, Smartphone, Wifi } from 'lucide-react';
+import { GitBranch, HeartPulse, QrCode, ShieldCheck, CreditCard, CalendarDays, Smartphone, Wifi, Check, X } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { Badge } from '../ui/Badge';
 
@@ -66,14 +66,20 @@ const features = [
     className: "md:col-span-4",
     color: "tertiary",
     visual: (
-      <div className="mt-4 p-4 bg-zinc-950/80 border border-zinc-800 rounded-xl">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-          <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">Pago pendiente</span>
+      <div className="mt-6 p-2 bg-zinc-950/80 border border-zinc-800 rounded-2xl flex items-center justify-between gap-3 group-hover:border-zinc-700/50 transition-colors">
+        <div className="flex items-center gap-2 px-1">
+          <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_rgba(251,191,36,0.4)]" />
+          <span className="text-[9px] font-black text-amber-400 uppercase tracking-widest whitespace-nowrap">PAGO PENDIENTE</span>
         </div>
-        <div className="flex gap-2 mt-3">
-          <div className="flex-1 text-center text-[10px] font-bold py-1.5 bg-emerald-500/15 text-emerald-400 rounded-lg border border-emerald-500/20">✓ Aprobar</div>
-          <div className="flex-1 text-center text-[10px] font-bold py-1.5 bg-red-500/10 text-red-400 rounded-lg border border-red-500/20">✕ Rechazar</div>
+        <div className="flex gap-1.5">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20 text-[10px] font-bold hover:bg-emerald-500/20 transition-colors cursor-pointer">
+            <Check className="w-3.5 h-3.5" />
+            <span>Aprobar</span>
+          </div>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-red-500/10 text-red-500 rounded-xl border border-red-500/20 text-[10px] font-bold hover:bg-red-500/20 transition-colors cursor-pointer">
+            <X className="w-3.5 h-3.5" />
+            <span>Rechazar</span>
+          </div>
         </div>
       </div>
     )
