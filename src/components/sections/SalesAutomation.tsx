@@ -140,19 +140,21 @@ export const SalesAutomation = () => {
               Mantén el control total con registro manual de pedidos.
             </p>
 
-            <div className="flex-1 flex flex-col justify-center w-full space-y-6">
-              {coreSteps.map((step, i) => (
-                <div key={i} className="flex items-center gap-4 group">
-                  <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-zinc-800"
-                    style={{ backgroundColor: `${step.color}10` }}
-                  >
-                    <step.icon className="w-5 h-5" style={{ color: step.color }} />
+            <div className="flex-1 flex flex-col justify-center min-h-[320px] w-full">
+              <div className="space-y-6">
+                {coreSteps.map((step, i) => (
+                  <div key={i} className="flex items-center gap-4 group">
+                    <div 
+                      className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-zinc-800"
+                      style={{ backgroundColor: `${step.color}10` }}
+                    >
+                      <step.icon className="w-5 h-5" style={{ color: step.color }} />
+                    </div>
+                    <div className="flex-1 h-px bg-zinc-800" />
+                    <span className="text-xs font-black text-zinc-400 uppercase tracking-wider">{step.title}</span>
                   </div>
-                  <div className="flex-1 h-px bg-zinc-800" />
-                  <span className="text-xs font-black text-zinc-400 uppercase tracking-wider">{step.title}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </motion.div>
 
@@ -181,19 +183,21 @@ export const SalesAutomation = () => {
               cierra la venta sin que tú hagas nada.
             </p>
 
-            <div className="flex-1 flex flex-col justify-center w-full space-y-6">
-              {aiSteps.map((step, i) => (
-                <div key={i} className="flex items-center gap-4 group">
-                  <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-primary/20 shadow-lg shadow-primary/5"
-                    style={{ backgroundColor: `${step.color}15` }}
-                  >
-                    <step.icon className="w-5 h-5" style={{ color: step.color }} />
+            <div className="flex-1 flex flex-col justify-center min-h-[320px] w-full">
+              <div className="space-y-6">
+                {aiSteps.map((step, i) => (
+                  <div key={i} className="flex items-center gap-4 group">
+                    <div 
+                      className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-primary/20 shadow-lg shadow-primary/5"
+                      style={{ backgroundColor: `${step.color}15` }}
+                    >
+                      <step.icon className="w-5 h-5" style={{ color: step.color }} />
+                    </div>
+                    <div className="flex-1 h-px bg-primary/20" />
+                    <span className="text-xs font-black text-white uppercase tracking-wider">{step.title}</span>
                   </div>
-                  <div className="flex-1 h-px bg-primary/20" />
-                  <span className="text-xs font-black text-white uppercase tracking-wider">{step.title}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
             
             <div className="mt-8 p-4 rounded-xl bg-zinc-950/50 border border-primary/20 backdrop-blur-sm">

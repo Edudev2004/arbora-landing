@@ -18,7 +18,7 @@ const features = [
     className: "md:col-span-8",
     color: "primary",
     visual: (
-      <div className="mt-auto relative rounded-xl bg-zinc-950/80 p-6 border border-zinc-800 overflow-hidden">
+      <div className="w-full relative rounded-xl bg-zinc-950/80 p-6 border border-zinc-800 overflow-hidden">
         <div className="flex gap-4 flex-wrap">
           <div className="p-3 bg-primary/10 border border-primary/20 rounded-lg text-[10px] font-mono">Trigger: New Message</div>
           <div className="p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-[10px] font-mono">Action: Send Menu</div>
@@ -69,7 +69,7 @@ const features = [
     className: "md:col-span-4",
     color: "tertiary",
     visual: (
-      <div className="w-full mt-auto flex justify-center">
+      <div className="w-full flex justify-center">
         <div className="bg-zinc-950/80 border border-zinc-800 rounded-2xl p-2 flex flex-col sm:flex-row items-center gap-3 group-hover:border-zinc-700/50 transition-colors">
           <div className="flex items-center gap-2.5 px-3 py-2 border-b border-zinc-900 sm:border-b-0 sm:border-r sm:border-zinc-900 w-full sm:w-auto justify-center">
             <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_rgba(251,191,36,0.4)]" />
@@ -143,7 +143,7 @@ const features = [
     className: "md:col-span-8",
     color: "primary",
     visual: (
-      <div className="mt-auto w-full relative rounded-xl bg-zinc-950/80 p-5 border border-zinc-800 overflow-hidden">
+      <div className="w-full relative rounded-xl bg-zinc-950/80 p-5 border border-zinc-800 overflow-hidden">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {devices.map((dev, i) => (
             <div key={i} className="p-3 rounded-xl bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 transition-colors">
@@ -294,7 +294,7 @@ export const BentoFeatures = () => {
                 <p className="text-zinc-400 text-sm max-w-sm mb-8 leading-relaxed font-medium mx-auto md:mx-0">
                   {feature.description}
                 </p>
-                <div className="w-full flex-1 flex items-center justify-center">
+                <div className="w-full flex-1 flex items-center justify-center min-h-[250px] md:min-h-[unset]">
                   {feature.visual}
                 </div>
               </div>
