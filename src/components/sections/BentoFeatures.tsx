@@ -181,7 +181,7 @@ export const BentoFeatures = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className={cn(
-                "flex-shrink-0 w-[85vw] md:w-full snap-center group relative overflow-hidden glass-card p-8 border border-zinc-800/50 hover:border-zinc-700/50 transition-all duration-300",
+                "flex-shrink-0 w-[280px] sm:w-[320px] md:w-full snap-center group relative overflow-hidden glass-card p-8 border border-zinc-800/50 hover:border-zinc-700/50 transition-all duration-300",
                 feature.className
               )}
             >
