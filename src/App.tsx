@@ -85,20 +85,20 @@ function App() {
         <section className="py-40 px-6">
           <div className="max-w-5xl mx-auto relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary via-tertiary to-primary rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 animate-pulse"></div>
-            <div className="relative bg-zinc-950 rounded-[2.5rem] p-16 md:p-24 text-center border border-zinc-800/50 overflow-hidden">
+            <div className="relative bg-zinc-950 rounded-[2.5rem] p-8 sm:p-16 md:p-24 text-center border border-zinc-800/50 overflow-hidden">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
               
-              <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-10 leading-[1.05] hero-gradient-text px-4">
-                Tu competencia ya <br /> vende por WhatsApp.
+              <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tighter mb-10 leading-[1.05] hero-gradient-text px-4">
+                Tu competencia ya <br className="hidden md:block" /> vende por WhatsApp.
               </h2>
               
-              <p className="text-lg md:text-xl text-zinc-500 mb-14 max-w-2xl mx-auto leading-relaxed font-semibold">
-                Empieza hoy, gratis. Sin tarjeta, sin compromisos. <br /> Configura tu primer bot en menos de 10 minutos.
+              <p className="text-base md:text-xl text-zinc-500 mb-14 max-w-2xl mx-auto leading-relaxed font-semibold px-2">
+                Empieza hoy, gratis. Sin tarjeta, sin compromisos. <br className="hidden md:block" /> Configura tu primer bot en menos de 10 minutos.
               </p>
               
               <div className="flex flex-col sm:flex-row justify-center gap-6">
                 <a href={DASHBOARD_URL} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="px-12 py-6 text-xl">
+                  <Button size="lg" className="px-12 py-6 text-lg md:text-xl">
                     Crear mi Bot ahora
                   </Button>
                 </a>
