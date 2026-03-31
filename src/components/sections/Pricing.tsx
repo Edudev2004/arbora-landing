@@ -55,30 +55,73 @@ export const Pricing = () => {
     const container = scrollRef.current;
     if (!container) return;
 
-    const cards = container.children;
+    const cards = Array.from(container.children) as HTMLElement[];
     const totalCards = cards.length;
     if (totalCards === 0) return;
 
-    const interval = setInterval(() => {
-      if (isPaused.current) return;
-      const next = (currentIndex.current + 1) % totalCards;
-      const card = cards[next] as HTMLElement;
-      if (card) {
-        container.scrollTo({ left: card.offsetLeft - 24, behavior: 'smooth' });
-      }
-      currentIndex.current = next;
-    }, 3000);
+    const syncIndex = () => {
+      const scrollPos = container.scrollLeft;
+      const containerWidth = container.offsetWidth;
+      let closestIndex = 0;
+      let minDistance = Infinity;
+      
+      cards.forEach((card, i) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const scrollCenter = scrollPos + containerWidth / 2;
+        const distance = Math.abs(cardCenter - scrollCenter);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = i;
+        }
+      });
+      currentIndex.current = closestIndex;
+    };
 
-    const pause = () => { isPaused.current = true; };
-    const resume = () => { isPaused.current = false; };
+    let timer: number;
 
-    container.addEventListener('touchstart', pause);
-    container.addEventListener('touchend', resume);
+    const startAutoPlay = () => {
+      timer = setTimeout(() => {
+        if (!isPaused.current) {
+          const next = (currentIndex.current + 1) % totalCards;
+          const card = cards[next];
+          if (card) {
+            const scrollPosition = card.offsetLeft - (container.offsetWidth / 2) + (card.offsetWidth / 2);
+            container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+            currentIndex.current = next;
+          }
+        }
+        startAutoPlay();
+      }, 4000);
+    };
+
+    const resetTimer = () => {
+      clearTimeout(timer);
+      startAutoPlay();
+    };
+
+    const handleTouchStart = () => {
+      isPaused.current = true;
+      clearTimeout(timer);
+    };
+
+    const handleTouchEnd = () => {
+      isPaused.current = false;
+      resetTimer();
+    };
+
+    container.addEventListener('scroll', syncIndex, { passive: true });
+    container.addEventListener('scroll', resetTimer, { passive: true });
+    container.addEventListener('touchstart', handleTouchStart);
+    container.addEventListener('touchend', handleTouchEnd);
+
+    startAutoPlay();
 
     return () => {
-      clearInterval(interval);
-      container.removeEventListener('touchstart', pause);
-      container.removeEventListener('touchend', resume);
+      clearTimeout(timer);
+      container.removeEventListener('scroll', syncIndex);
+      container.removeEventListener('scroll', resetTimer);
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchend', handleTouchEnd);
     };
   }, []);
 

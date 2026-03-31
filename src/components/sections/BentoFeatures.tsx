@@ -55,8 +55,10 @@ const features = [
     className: "md:col-span-4",
     color: "primary",
     visual: (
-      <div className="mx-auto p-4 bg-white/5 rounded-xl border border-zinc-800 mt-4 group-hover:scale-105 transition-transform">
-        <QrCode className="w-24 h-24 text-white opacity-40" />
+      <div className="w-full flex justify-center mt-6">
+        <div className="p-4 bg-white/5 rounded-xl border border-zinc-800 group-hover:scale-105 transition-transform">
+          <QrCode className="w-24 h-24 text-white opacity-40" />
+        </div>
       </div>
     )
   },
@@ -141,7 +143,7 @@ const features = [
     className: "md:col-span-8",
     color: "primary",
     visual: (
-      <div className="mt-auto relative rounded-xl bg-zinc-950/80 p-5 border border-zinc-800 overflow-hidden">
+      <div className="mt-auto w-full relative rounded-xl bg-zinc-950/80 p-5 border border-zinc-800 overflow-hidden">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {devices.map((dev, i) => (
             <div key={i} className="p-3 rounded-xl bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 transition-colors">
@@ -182,30 +184,74 @@ export const BentoFeatures = () => {
     const container = scrollRef.current;
     if (!container) return;
 
-    const cards = container.children;
+    const cards = Array.from(container.children) as HTMLElement[];
     const totalCards = cards.length;
     if (totalCards === 0) return;
 
-    const interval = setInterval(() => {
-      if (isPaused.current) return;
-      const next = (currentIndex.current + 1) % totalCards;
-      const card = cards[next] as HTMLElement;
-      if (card) {
-        container.scrollTo({ left: card.offsetLeft - 24, behavior: 'smooth' });
-      }
-      currentIndex.current = next;
-    }, 3000);
+    // Sincronizar el índice actual al desplazar manualmente
+    const syncIndex = () => {
+      const scrollPos = container.scrollLeft;
+      const containerWidth = container.offsetWidth;
+      let closestIndex = 0;
+      let minDistance = Infinity;
+      
+      cards.forEach((card, i) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const scrollCenter = scrollPos + containerWidth / 2;
+        const distance = Math.abs(cardCenter - scrollCenter);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = i;
+        }
+      });
+      currentIndex.current = closestIndex;
+    };
 
-    const pause = () => { isPaused.current = true; };
-    const resume = () => { isPaused.current = false; };
+    let timer: number;
 
-    container.addEventListener('touchstart', pause);
-    container.addEventListener('touchend', resume);
+    const startAutoPlay = () => {
+      timer = setTimeout(() => {
+        if (!isPaused.current) {
+          const next = (currentIndex.current + 1) % totalCards;
+          const card = cards[next];
+          if (card) {
+            const scrollPosition = card.offsetLeft - (container.offsetWidth / 2) + (card.offsetWidth / 2);
+            container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+            currentIndex.current = next;
+          }
+        }
+        startAutoPlay(); // Programar el siguiente
+      }, 4000);
+    };
+
+    const resetTimer = () => {
+      clearTimeout(timer);
+      startAutoPlay();
+    };
+
+    const handleTouchStart = () => {
+      isPaused.current = true;
+      clearTimeout(timer);
+    };
+
+    const handleTouchEnd = () => {
+      isPaused.current = false;
+      resetTimer();
+    };
+
+    container.addEventListener('scroll', syncIndex, { passive: true });
+    container.addEventListener('scroll', resetTimer, { passive: true });
+    container.addEventListener('touchstart', handleTouchStart);
+    container.addEventListener('touchend', handleTouchEnd);
+
+    startAutoPlay();
 
     return () => {
-      clearInterval(interval);
-      container.removeEventListener('touchstart', pause);
-      container.removeEventListener('touchend', resume);
+      clearTimeout(timer);
+      container.removeEventListener('scroll', syncIndex);
+      container.removeEventListener('scroll', resetTimer);
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchend', handleTouchEnd);
     };
   }, []);
 
@@ -219,7 +265,10 @@ export const BentoFeatures = () => {
           </h2>
         </div>
         
-        <div ref={scrollRef} className="flex overflow-x-auto hide-scrollbar md:grid md:grid-cols-12 gap-6 pb-8 -mx-6 px-6 snap-x snap-mandatory">
+        <div 
+          ref={scrollRef} 
+          className="flex overflow-x-auto hide-scrollbar md:grid md:grid-cols-12 gap-6 pb-8 -mx-6 px-6 snap-x snap-mandatory scroll-smooth"
+        >
           {features.map((feature, i) => (
             <motion.div
               key={i}
@@ -232,9 +281,9 @@ export const BentoFeatures = () => {
                 feature.className
               )}
             >
-              <div className="flex flex-col items-start h-full relative z-10">
+              <div className="flex flex-col h-full relative z-10 text-center md:text-left">
                 <div className={cn(
-                  "mb-6 p-3 rounded-xl inline-block transition-transform group-hover:scale-110",
+                  "mb-6 p-3 rounded-xl inline-block transition-transform group-hover:scale-110 mx-auto md:mx-0",
                   feature.color === 'primary' ? 'bg-primary/10 text-primary' : 
                   feature.color === 'tertiary' ? 'bg-tertiary/10 text-tertiary' : 
                   'bg-emerald-500/10 text-emerald-400'
@@ -242,10 +291,12 @@ export const BentoFeatures = () => {
                   <feature.icon className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-bold mb-3 tracking-tight text-white">{feature.title}</h3>
-                <p className="text-zinc-400 text-sm max-w-sm mb-8 leading-relaxed font-medium">
+                <p className="text-zinc-400 text-sm max-w-sm mb-8 leading-relaxed font-medium mx-auto md:mx-0">
                   {feature.description}
                 </p>
-                {feature.visual}
+                <div className="w-full flex-1 flex items-center justify-center">
+                  {feature.visual}
+                </div>
               </div>
               
               {/* Background Glow */}
