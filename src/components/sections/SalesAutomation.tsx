@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { CreditCard, Camera, BellRing, CheckCircle, Brain, Target, Sparkles } from 'lucide-react';
 
@@ -16,8 +17,46 @@ const aiSteps = [
 ];
 
 export const SalesAutomation = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const currentIndex = useRef(0);
+  const isPaused = useRef(false);
+
+  useEffect(() => {
+    const isMobile = window.matchMedia('(max-width: 1023px)').matches;
+    if (!isMobile) return;
+
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const cards = container.children;
+    const totalCards = cards.length;
+    if (totalCards === 0) return;
+
+    const interval = setInterval(() => {
+      if (isPaused.current) return;
+      const next = (currentIndex.current + 1) % totalCards;
+      const card = cards[next] as HTMLElement;
+      if (card) {
+        container.scrollTo({ left: card.offsetLeft - 24, behavior: 'smooth' });
+      }
+      currentIndex.current = next;
+    }, 3000);
+
+    const pause = () => { isPaused.current = true; };
+    const resume = () => { isPaused.current = false; };
+
+    container.addEventListener('touchstart', pause);
+    container.addEventListener('touchend', resume);
+
+    return () => {
+      clearInterval(interval);
+      container.removeEventListener('touchstart', pause);
+      container.removeEventListener('touchend', resume);
+    };
+  }, []);
+
   return (
-    <section id="ventas" className="py-32 px-6 relative overflow-hidden bg-zinc-950/20">
+    <section id="ventas" className="py-32 px-6 relative overflow-hidden bg-zinc-950/20 text-balance">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-24">
           <motion.div
@@ -35,13 +74,13 @@ export const SalesAutomation = () => {
           </motion.div>
         </div>
 
-        <div className="flex overflow-x-auto hide-scrollbar lg:grid lg:grid-cols-2 gap-8 pb-8 -mx-6 px-6 snap-x snap-mandatory">
+        <div ref={scrollRef} className="flex overflow-x-auto hide-scrollbar lg:grid lg:grid-cols-2 gap-8 pb-8 -mx-6 px-6 snap-x snap-mandatory">
           {/* Core Row */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex-shrink-0 w-[280px] sm:w-[350px] lg:w-full snap-center p-8 rounded-[2.5rem] bg-zinc-900/30 border border-zinc-800/50"
+            className="flex-shrink-0 w-[85vw] sm:w-[500px] lg:w-full snap-center p-8 rounded-[2.5rem] bg-zinc-900/30 border border-zinc-800/50"
           >
             <div className="flex items-center gap-3 mb-8">
               <span className="p-2 bg-zinc-800 rounded-lg text-zinc-400">
@@ -78,7 +117,7 @@ export const SalesAutomation = () => {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex-shrink-0 w-[280px] sm:w-[350px] lg:w-full snap-center p-8 rounded-[2.5rem] bg-primary/5 border border-primary/20 relative overflow-hidden"
+            className="flex-shrink-0 w-[85vw] sm:w-[500px] lg:w-full snap-center p-8 rounded-[2.5rem] bg-primary/5 border border-primary/20 relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 p-8 opacity-10 blur-xl pointer-events-none">
               <Brain className="w-32 h-32 text-primary" />

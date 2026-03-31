@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { GitBranch, HeartPulse, QrCode, ShieldCheck, CreditCard, CalendarDays, Smartphone, Wifi, Check, X } from 'lucide-react';
 import { cn } from '../../lib/utils';
@@ -66,19 +67,21 @@ const features = [
     className: "md:col-span-4",
     color: "tertiary",
     visual: (
-      <div className="mt-6 p-2 bg-zinc-950/80 border border-zinc-800 rounded-2xl flex items-center justify-between gap-3 group-hover:border-zinc-700/50 transition-colors">
-        <div className="flex items-center gap-2 px-1">
-          <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_rgba(251,191,36,0.4)]" />
-          <span className="text-[9px] font-black text-amber-400 uppercase tracking-widest whitespace-nowrap">PAGO PENDIENTE</span>
-        </div>
-        <div className="flex gap-1.5">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20 text-[10px] font-bold hover:bg-emerald-500/20 transition-colors cursor-pointer">
-            <Check className="w-3.5 h-3.5" />
-            <span>Aprobar</span>
+      <div className="w-full mt-auto flex justify-center">
+        <div className="bg-zinc-950/80 border border-zinc-800 rounded-2xl p-2 flex flex-col sm:flex-row items-center gap-3 group-hover:border-zinc-700/50 transition-colors">
+          <div className="flex items-center gap-2.5 px-3 py-2 border-b border-zinc-900 sm:border-b-0 sm:border-r sm:border-zinc-900 w-full sm:w-auto justify-center">
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_rgba(251,191,36,0.4)]" />
+            <span className="text-[9px] font-black text-amber-400 uppercase tracking-[0.15em] whitespace-nowrap">PAGO PENDIENTE</span>
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-red-500/10 text-red-500 rounded-xl border border-red-500/20 text-[10px] font-bold hover:bg-red-500/20 transition-colors cursor-pointer">
-            <X className="w-3.5 h-3.5" />
-            <span>Rechazar</span>
+          <div className="flex items-center gap-2 p-1">
+            <div className="flex items-center justify-center gap-1.5 px-4 py-2 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20 text-[10px] font-black hover:bg-emerald-500/20 transition-colors cursor-pointer whitespace-nowrap">
+              <Check className="w-3.5 h-3.5" />
+              <span>APROBAR</span>
+            </div>
+            <div className="flex items-center justify-center gap-1.5 px-4 py-2 bg-red-500/10 text-red-500 rounded-xl border border-red-500/20 text-[10px] font-black hover:bg-red-500/20 transition-colors cursor-pointer whitespace-nowrap">
+              <X className="w-3.5 h-3.5" />
+              <span>RECHAZAR</span>
+            </div>
           </div>
         </div>
       </div>
@@ -139,13 +142,13 @@ const features = [
     color: "primary",
     visual: (
       <div className="mt-auto relative rounded-xl bg-zinc-950/80 p-5 border border-zinc-800 overflow-hidden">
-        <div className="flex gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {devices.map((dev, i) => (
-            <div key={i} className="flex-1 p-3 rounded-lg bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 transition-colors">
+            <div key={i} className="p-3 rounded-xl bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 transition-colors">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <Smartphone className="w-3.5 h-3.5 text-zinc-400" />
-                  <span className="text-[11px] font-bold text-white">{dev.name}</span>
+                  <span className="text-[11px] font-black text-white">{dev.name}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className={`w-1.5 h-1.5 rounded-full ${dev.status === 'online' ? 'bg-emerald-500' : 'bg-zinc-600'}`} />
@@ -156,7 +159,7 @@ const features = [
               </div>
               <div className="flex items-center gap-1.5 mt-1">
                 <Wifi className={`w-3 h-3 ${dev.status === 'online' ? 'text-emerald-500' : 'text-zinc-700'}`} />
-                <span className="text-[10px] text-zinc-500">{dev.msgs} msgs</span>
+                <span className="text-[10px] font-medium text-zinc-500">{dev.msgs} msgs</span>
               </div>
             </div>
           ))}
@@ -168,6 +171,44 @@ const features = [
 ];
 
 export const BentoFeatures = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const currentIndex = useRef(0);
+  const isPaused = useRef(false);
+
+  useEffect(() => {
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (!isMobile) return;
+
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const cards = container.children;
+    const totalCards = cards.length;
+    if (totalCards === 0) return;
+
+    const interval = setInterval(() => {
+      if (isPaused.current) return;
+      const next = (currentIndex.current + 1) % totalCards;
+      const card = cards[next] as HTMLElement;
+      if (card) {
+        container.scrollTo({ left: card.offsetLeft - 24, behavior: 'smooth' });
+      }
+      currentIndex.current = next;
+    }, 3000);
+
+    const pause = () => { isPaused.current = true; };
+    const resume = () => { isPaused.current = false; };
+
+    container.addEventListener('touchstart', pause);
+    container.addEventListener('touchend', resume);
+
+    return () => {
+      clearInterval(interval);
+      container.removeEventListener('touchstart', pause);
+      container.removeEventListener('touchend', resume);
+    };
+  }, []);
+
   return (
     <section id="features" className="py-32 px-6">
       <div className="max-w-7xl mx-auto">
@@ -178,7 +219,7 @@ export const BentoFeatures = () => {
           </h2>
         </div>
         
-        <div className="flex overflow-x-auto hide-scrollbar md:grid md:grid-cols-12 gap-6 pb-8 -mx-6 px-6 snap-x snap-mandatory">
+        <div ref={scrollRef} className="flex overflow-x-auto hide-scrollbar md:grid md:grid-cols-12 gap-6 pb-8 -mx-6 px-6 snap-x snap-mandatory">
           {features.map((feature, i) => (
             <motion.div
               key={i}
@@ -187,7 +228,7 @@ export const BentoFeatures = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className={cn(
-                "flex-shrink-0 w-[280px] sm:w-[320px] md:w-full snap-center group relative overflow-hidden glass-card p-8 border border-zinc-800/50 hover:border-zinc-700/50 transition-all duration-300",
+                "flex-shrink-0 w-[85vw] sm:w-[380px] md:w-full snap-center group relative overflow-hidden glass-card p-6 sm:p-8 border border-zinc-800/50 hover:border-zinc-700/50 transition-all duration-300",
                 feature.className
               )}
             >

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Zap, Bot, CalendarDays, ShieldCheck, QrCode, Brain, HelpCircle, Users } from 'lucide-react';
 import { Button } from '../ui/Button';
@@ -43,6 +44,44 @@ const plans = [
 ];
 
 export const Pricing = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const currentIndex = useRef(0);
+  const isPaused = useRef(false);
+
+  useEffect(() => {
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (!isMobile) return;
+
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const cards = container.children;
+    const totalCards = cards.length;
+    if (totalCards === 0) return;
+
+    const interval = setInterval(() => {
+      if (isPaused.current) return;
+      const next = (currentIndex.current + 1) % totalCards;
+      const card = cards[next] as HTMLElement;
+      if (card) {
+        container.scrollTo({ left: card.offsetLeft - 24, behavior: 'smooth' });
+      }
+      currentIndex.current = next;
+    }, 3000);
+
+    const pause = () => { isPaused.current = true; };
+    const resume = () => { isPaused.current = false; };
+
+    container.addEventListener('touchstart', pause);
+    container.addEventListener('touchend', resume);
+
+    return () => {
+      clearInterval(interval);
+      container.removeEventListener('touchstart', pause);
+      container.removeEventListener('touchend', resume);
+    };
+  }, []);
+
   return (
     <section id="pricing" className="py-32 px-6 relative overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
@@ -65,7 +104,7 @@ export const Pricing = () => {
           </p>
         </motion.div>
 
-        <div className="flex overflow-x-auto hide-scrollbar md:grid md:grid-cols-2 gap-6 pb-8 -mx-6 px-6 snap-x snap-mandatory">
+        <div ref={scrollRef} className="flex overflow-x-auto hide-scrollbar md:grid md:grid-cols-2 gap-6 pt-12 pb-8 -mx-6 px-6 snap-x snap-mandatory">
           {plans.map((plan, i) => (
             <motion.div
               key={i}
@@ -73,7 +112,7 @@ export const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15 }}
-              className={`relative flex-shrink-0 w-[280px] sm:w-[320px] md:w-full snap-center group rounded-[2.5rem] p-10 border transition-all duration-500 ${
+              className={`relative flex-shrink-0 w-[85vw] sm:w-[380px] md:w-full snap-center group rounded-[2.5rem] p-10 border transition-all duration-500 ${
                 plan.highlighted 
                   ? 'bg-zinc-900/60 border-primary/30 hover:border-primary/50 shadow-2xl shadow-primary/5' 
                   : 'bg-zinc-950/50 border-zinc-800/50 hover:border-zinc-700/60'

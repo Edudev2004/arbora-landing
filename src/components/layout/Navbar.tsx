@@ -71,7 +71,33 @@ export const Navbar = () => {
                   key={link.label}
                   className="text-lg font-bold text-zinc-400 hover:text-primary transition-colors" 
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const targetId = link.href.replace('#', '');
+                    const elem = document.getElementById(targetId);
+                    if (elem) {
+                      // Calculate position BEFORE closing menu (layout is stable)
+                      const offset = 80;
+                      const bodyRect = document.body.getBoundingClientRect().top;
+                      const elementRect = elem.getBoundingClientRect().top;
+                      const elementPosition = elementRect - bodyRect;
+                      const offsetPosition = elementPosition - offset;
+                      
+                      // Close menu first
+                      setIsOpen(false);
+                      
+                      // Wait for menu collapse animation to finish, then scroll
+                      setTimeout(() => {
+                        window.scrollTo({
+                          top: offsetPosition,
+                          behavior: 'smooth'
+                        });
+                      }, 350);
+                    } else {
+                      console.warn(`[Navbar] Section not found: #${targetId}`);
+                      setIsOpen(false);
+                    }
+                  }}
                 >
                   {link.label}
                 </a>
